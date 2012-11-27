@@ -1,51 +1,53 @@
-// Backbone.sync = function(method, model, options) {
-// 	console.log(method);
-// 	console.log(model);
-// 	console.log(options);
-// 	
-// 	
-// };
-// 
 
 var CPView = Backbone.View.extend({
 	
+	events: {
+		'focus #COST_JOB_NUM': 'setJobTicketList',
+		//'select #COST_JOB_NUM': 'setTaskList',
+		
+	},
+	
 	el: $('#main'),
 	
-	jobTickets: null,
+	jobTicketCollection: null,
 	
-	// events: {
-	// 	'keyup #COST_JOB_NUM': 'jobSearch',
-	// 	'blur #COST_JOB_NUM': 'fillJobNumber'
-	// },
+	taskCollection: null,
+	
+	jobTicketList: null,
+	
+	taskList: null,
 	
 	initialize: function() {
 		console.log('init');
 		_.bindAll(this);
 		
-		this.jobTickets = new JobTickets();
-		console.log(this.jobTickets);
-		this.jobTickets.on('reset', function() {
-			console.log('reset');
-			console.log(this.jobTickets);
-		});
-		this.jobTickets.fetch({
-			error: function(collection, xhr, options) {
-				console.log('error');
-				console.log(xhr);
-				
-			}
-			
-		});
+		this.jobTicketCollection = new JobTicketCollection();
+
 	},
 	
-	jobSearch: function() {
-		console.log('jobSearch');
+	setJobTicketList: function(e) {
+		this._setAutoComplete(e.currentTarget, this.jobTicketCollection, this.setTaskList)
 	},
 	
-	fillJobNumber: function() {
+	setTaskList: function(e, ui) {
 		
-	}
+		var tasks = new JobTaskCollection(null, {
+			jobNumber: ui.item.value
+		});
+
+		tasks.on('reset', function() {
+			console.log(tasks);
+			this._setAutoComplete('#COST_TASK', tasks);
+		}, this);
+	},
 	
+	_setAutoComplete: function(el, collection, onSelectCallback) {
+		$(el).autocomplete({
+			source: collection.getAutoCompleteList(),
+			select: onSelectCallback || null
+		});
+	}
+
 	
 });
 

@@ -4,7 +4,9 @@
 	"manifest_version": 2,  
 	"description": "Bugs ;)",
   "browser_action": {
-    "default_icon": "icon.logo.gif"
+    "default_icon": "icon.logo.gif",
+    "default_title": "Clients & Profits",
+    "name": "Clients & Profits"
   },
   "options_page": "settings.html",
 	"permissions": [
@@ -12,16 +14,25 @@
 		"http://*/*",
 		"tabs"
 	],
+	"background": {
+	  "scripts":["app/browseraction.js"]
+	},
 	"content_scripts": [
 	  {
-	    "matches": ["http://cnpx-web.hzdesign.com/*"],
+	    "matches": ["http://cnpx.hzdesign.com/*"],
 	    "js": [
-	      "jquery.min.js",
-	      "jquery-ui/js/jquery-ui-1.8.18.custom.min.js",
+	      "lib/jquery.min.js",
+	      "lib/jquery-ui/js/jquery-ui-1.8.18.custom.min.js",
 	      "lib/underscore-min.js",
-	      "lib/backbone-min.js",
-	      "app/models.js",
+	      "lib/backbone.js",
+	      "app/models/collection.base.js",
+	      "app/models/collection.jobticket.js",
+	      "app/models/collection.tasks.js",
+	      "app/models/collection.tasks.job.js",
 	      "app/controller.js"
+	    ],
+	    "css": [
+	      "lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css"
 	    ]
 	  }
 	]
