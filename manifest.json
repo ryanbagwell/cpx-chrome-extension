@@ -1,12 +1,18 @@
 {
-  "name": "C&P Chrome Autofill",
+  "name": "C&P Time Card Autocomplete",
   "version": "1.0",
 	"manifest_version": 2,
-	"description": "Bugs ;)",
+	"description": "Adds autocomplete functionality to the Clients & Profits web time card",
+  "icons": {
+    "16": "images/icon.logo.16.png",
+    "48": "images/icon.logo.48.png",
+    "128": "images/icon.logo.128.png"
+  },
   "browser_action": {
     "default_icon": {
-        "19": "icon.logo.19.png",
-        "38": "icon.logo.38.png"
+        "19": "images/icon.logo.19.png",
+        "38": "images/icon.logo.38.png"
+
     },
     "default_title": "Clients & Profits",
     "name": "Clients & Profits"
