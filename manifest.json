@@ -24,7 +24,10 @@
 		"tabs"
 	],
 	"background": {
-	  "scripts":["app/browseraction.js"]
+	  "scripts":[
+        "lib/underscore-min.js",
+        "app/browseraction.js"
+      ]
 	},
 	"content_scripts": [
 	  {
@@ -38,7 +41,8 @@
 	      "app/models/collection.jobticket.js",
 	      "app/models/collection.tasks.js",
 	      "app/models/collection.tasks.job.js",
-	      "app/controller.js"
+          "app/controller.js",
+	      "app/settings.js"
 	    ],
 	    "css": [
 	      "lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css"

@@ -1,70 +1,62 @@
 <html>
 	<head>
-		<title>Settings</title>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-		
-		<script type="text/javascript">
-			// Saves options to localStorage.
-			
-			function bcQuery(apiKey) {
-				var url = "https://hzdg.basecamphq.com/todo_lists.xml";
-				
-				$.ajax({
-					url: url,
-					username: apiKey + ":X",
-					success: function(response) {
-						console.log(repsonse);
-						
-					},
-					error: function(response) {
-						console.log(response);
-						
-						
-					}
-		
-			});
-			
-			
-			
-			
-			function save_options() {
-			  var bcURL = $('#bc-url').val();
-			  var apiKey = $('#api-key').val();
-						 
-			  localStorage["bcURL"] = bcURL;
-			  localStorage["apiKey"] = bcURL;
-			 
-			  // Update status to let user know options were saved.
-			  var status = document.getElementById("status");
-			  status.innerHTML = "Options Saved.";
-			  setTimeout(function() {
-			    status.innerHTML = "";
-			  }, 750);
-			}
-			
+		<title>Clients &amp; Profits Settings</title>
 
-			function restore_options() {
-			  var bcURL = localStorage["bcURL"];
-			  var apiKey = localStorage["apiKey"];
-		
-			  $('#bc-url').val(cpxURL);
-			 	$('#api-key').val(cpxUser);
+		<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+		<style>
+			body {
+				padding: 0 50px;
+			}
+			h1 {
+				margin-bottom: 30px;
+			}
+			form {
+				max-width: 50%;
+				position: relative;
+			}
+
+			.message-wrapper {
+				display: inline-block;
+			}
+
+			.alert {
+				display: none;
+				line-height: 0;
 
 			}
-			
-			jQuery(document).ready(function() {
-				restore_options();
-			});
-			
-		</script>
-		
+
+		</style>
+
+
 	</head>
 
 	<body>
-		<div id="status"></div>
-		<label>BC URL<input id="cpx-url" type="text" name="cpx_url" value="http://hzdg.basecamphq.com" /></label><br />
-		<label>API Key<input id="cpx-user" type="text" name="cpx_user" value="" /></label><br />
-		
-		<button onclick="save_options()">Save Options</button>
+
+
+
+		<h1>C&amp;P Autocomplete Settings</h1>
+
+		<form role="form">
+
+			<div class="form-group">
+    			<label for="cnp-url">C&amp;P Web Access URL:</label>
+    			<input type="cnpURL" class="form-control" id="cnp-url" placeholder="http://www.mycnpurl.io/">
+  			</div>
+
+  			<button type="submit" class="btn btn-default">Submit</button>
+
+			<div class="message-wrapper">
+				<div id="status" class="alert alert-success">Settings Saved!</div>
+			</div>
+
+		</form>
+
 	</body>
 </html>
+
+
+<script type="text/javascript" src="lib/jquery.min.js"></script>
+<script type="text/javascript" src="lib/underscore-min.js"></script>
+<script type="text/javascript" src="lib/backbone-min.js"></script>
+<script type="text/javascript" src="app/settings.js"></script>
