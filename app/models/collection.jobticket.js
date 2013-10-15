@@ -1,4 +1,4 @@
-var JobTicketModel = Backbone.Model.extend({
+JobTicketModel = Backbone.Model.extend({
 
 	defaults: {
 		number: '',
@@ -6,22 +6,22 @@ var JobTicketModel = Backbone.Model.extend({
 		name: '',
 		team: '',
 		priority: ''
-	},
-	
+	}
+
 });
 
-var JobTicketCollection = BaseCollection.extend({
-	
+JobTicketCollection = BaseCollection.extend({
+
 	name: 'JobTicketCollection',
 
 	model: JobTicketModel,
 
 	url: '/lookup_job_tickets',
-	
+
 	parse: function(html) {
 		var $rows = $(html).find('table tr');
 		$rows.find('tr').first().remove();
-		
+
 		return $.map($rows, function(row) {
 			return {
 				number: $(row).find('td:eq(0) a').text(),
@@ -32,7 +32,7 @@ var JobTicketCollection = BaseCollection.extend({
 			}
 		});
 	},
-	
+
 	getAutoCompleteList: function() {
 		return this.map(function(job){
 			return {
@@ -41,5 +41,5 @@ var JobTicketCollection = BaseCollection.extend({
 			}
 		});
 	}
-	
+
 });

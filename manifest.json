@@ -22,11 +22,13 @@
     "https://*/*",
 	"http://*/*",
 	"tabs",
-    "activeTab"
+    "activeTab",
+    "history"
   ],
   "background": {
     "scripts":[
-      "lib/underscore-min.js",
+      "lib/underscore/underscore-min.js",
+      "lib/underscore.string/dist/underscore.string.min.js",
       "app/browseraction.js"
     ]
   }

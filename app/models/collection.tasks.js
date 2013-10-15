@@ -7,22 +7,25 @@ var TaskModel = Backbone.Model.extend({
 		team: '',
 		priority: ''
 	}
-	
+
 });
 
 var TaskCollection = BaseCollection.extend({
 
 	name: 'TaskCollection',
-	
+
 	model: TaskModel,
 
 	url: '/lookup_task_table',
-	
+
 	parse: function(html) {
 		var $rows = $(html).find('table tr');
 		$rows.find('tr').first().remove();
-		
+
 		return $.map($rows, function(row) {
+
+			if ( $(row).find('td:eq(0)').text() == 'Task:' || $(row).find('td:eq(0)').text() == 'NONE') return false;
+
 			return {
 				task: $(row).find('td:eq(0)').text(),
 				name: $(row).find('td:eq(1)').text(),
@@ -31,7 +34,7 @@ var TaskCollection = BaseCollection.extend({
 			}
 		});
 	},
-	
+
 	getAutoCompleteList: function() {
 		return this.map(function(job){
 			return {
@@ -39,6 +42,6 @@ var TaskCollection = BaseCollection.extend({
 				value: job.get('task')
 			}
 		});
-	}	
-	
+	}
+
 });

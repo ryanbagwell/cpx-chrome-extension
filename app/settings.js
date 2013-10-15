@@ -1,4 +1,3 @@
-
 var SettingsView = Backbone.View.extend({
 
     events: {
@@ -8,7 +7,7 @@ var SettingsView = Backbone.View.extend({
     el: $('form'),
 
     initialize: function(options) {
-        _.bindAll(this);
+        _.bindAll(this, 'save', 'showAlert');
         this.on('saved', this.showAlert);
         $('#cnp-url').val(localStorage['cnpURL']);
     },

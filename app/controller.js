@@ -1,9 +1,7 @@
-console.log($);
-
-var CPView = Backbone.View.extend({
+CPView = Backbone.View.extend({
 
 	events: {
-		'focus #COST_JOB_NUM': 'showChoices',
+		'focus #COST_JOB_NUM': 'setJobTicketList',
 		//'keydown #COST_JOB_NUM': 'showChoices',
 		'select #COST_JOB_NUM': 'setTaskList',
 
@@ -20,12 +18,11 @@ var CPView = Backbone.View.extend({
 	taskList: null,
 
 	initialize: function() {
-		console.log('init');
-		_.bindAll(this);
+		_.bindAll(this, 'setJobTicketList', 'setTaskList', '_setAutoComplete');
 
 		this.jobTicketCollection = new JobTicketCollection();
 
-		this.setJobTicketList('#COST_JOB_NUM');
+		this.jobTicketCollection.query();
 
 	},
 
@@ -40,23 +37,28 @@ var CPView = Backbone.View.extend({
 		});
 
 		tasks.on('reset', function() {
-			console.log(tasks);
 			this._setAutoComplete('#COST_TASK', tasks);
 		}, this);
 
+		tasks.query();
+
 	},
 
-	showChoices: function(e) {
-		$(e.currentTarget).autocomplete("search", "");
-	},
 
 	_setAutoComplete: function(el, collection, onSelectCallback) {
-		console.log
+
+		try {
+			if ($(el).autocomplete('option', 'disabled') === false)
+				return;
+		} catch(e) {}
+
 		$(el).autocomplete({
 			source: collection.getAutoCompleteList(),
 			select: (onSelectCallback || null),
 			minLength: 0
 		});
+
+		$(el).autocomplete("search", "");
 	}
 
 
