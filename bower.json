@@ -1,0 +1,19 @@
+{
+  "name": "Clients & Profits Time Card Autocomplete",
+  "version": "0.0.0",
+  "description": "Adds autocomplete capability to the C&P web time card.",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "jquery-ui":"1.10.3",
+    "backbone":"latest",
+    "underscore":"latest",
+    "underscore.string":"latest",
+    "bootstrap":"3.0.0"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ryanbagwell/cpx-chrome-extension.git"
+  },
+  "author": "Ryan Bagwell <ryan@ryanbagwell.com>"
+}

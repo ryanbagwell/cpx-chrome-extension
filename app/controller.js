@@ -1,9 +1,12 @@
+console.log($);
 
 var CPView = Backbone.View.extend({
 
 	events: {
-		'focus #COST_JOB_NUM': 'setJobTicketList',
+		'focus #COST_JOB_NUM': 'showChoices',
+		//'keydown #COST_JOB_NUM': 'showChoices',
 		'select #COST_JOB_NUM': 'setTaskList',
+
 	},
 
 	el: $('#main'),
@@ -21,6 +24,8 @@ var CPView = Backbone.View.extend({
 		_.bindAll(this);
 
 		this.jobTicketCollection = new JobTicketCollection();
+
+		this.setJobTicketList('#COST_JOB_NUM');
 
 	},
 
@@ -41,10 +46,16 @@ var CPView = Backbone.View.extend({
 
 	},
 
+	showChoices: function(e) {
+		$(e.currentTarget).autocomplete("search", "");
+	},
+
 	_setAutoComplete: function(el, collection, onSelectCallback) {
+		console.log
 		$(el).autocomplete({
 			source: collection.getAutoCompleteList(),
-			select: onSelectCallback || null
+			select: (onSelectCallback || null),
+			minLength: 0
 		});
 	}
 

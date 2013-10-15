@@ -1,5 +1,5 @@
 {
-  "name": "C&P Time Card Autocomplete",
+  "name": "Clients and Profits Time Card Autocomplete",
   "version": "1.0",
 	"manifest_version": 2,
 	"description": "Adds autocomplete functionality to the Clients & Profits web time card",
@@ -18,35 +18,16 @@
     "name": "Clients & Profits"
   },
   "options_page": "settings.html",
-	"permissions": [
-		"https://*/*",
-		"http://*/*",
-		"tabs"
-	],
-	"background": {
-	  "scripts":[
-        "lib/underscore-min.js",
-        "app/browseraction.js"
-      ]
-	},
-	"content_scripts": [
-	  {
-	    "matches": ["http://cnpx.hzdesign.com/*"],
-	    "js": [
-	      "lib/jquery.min.js",
-	      "lib/jquery-ui/js/jquery-ui-1.8.18.custom.min.js",
-	      "lib/underscore-min.js",
-	      "lib/backbone.js",
-	      "app/models/collection.base.js",
-	      "app/models/collection.jobticket.js",
-	      "app/models/collection.tasks.js",
-	      "app/models/collection.tasks.job.js",
-          "app/controller.js",
-	      "app/settings.js"
-	    ],
-	    "css": [
-	      "lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css"
-	    ]
-	  }
-	]
+  "permissions": [
+    "https://*/*",
+	"http://*/*",
+	"tabs",
+    "activeTab"
+  ],
+  "background": {
+    "scripts":[
+      "lib/underscore-min.js",
+      "app/browseraction.js"
+    ]
+  }
 }
