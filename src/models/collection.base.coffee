@@ -1,13 +1,20 @@
-BaseCollection = Backbone.Collection.extend(
+$ = require 'jquery'
+_ = require 'underscore'
+Backbone = require 'backbone'
+
+class BaseCollection extends Backbone.Collection
+
   name: null
+
   dataType: 'html'
-  initialize: (models, options) ->
-    console.log options
-    if options
-      @options = options
+
+  initialize: (models, @options={}) ->
+    super @options
+
     @on 'reset', @stash
+
     @query()
-    this
+
   sync: (method, model, options) ->
     `var options`
     options = $.extend({
@@ -16,12 +23,15 @@ BaseCollection = Backbone.Collection.extend(
     }, options)
     console.log options
     Backbone.sync.call this, method, model, options
+
   getAutoCompleteList: ->
     null
+
   query: ->
     console.log 'query'
     @fetch()
     return
+
   populate: (options) ->
     console.log 'populate'
     models = localStorage.getItem(@name)
@@ -36,4 +46,5 @@ BaseCollection = Backbone.Collection.extend(
     console.log 'stash'
     localStorage.setItem @name, @models
     return
-)
+
+module.exports = BaseCollection

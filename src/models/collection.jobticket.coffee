@@ -1,16 +1,31 @@
-JobTicketModel = Backbone.Model.extend(defaults:
-  number: ''
-  client: ''
-  name: ''
-  team: ''
-  priority: '')
-JobTicketCollection = BaseCollection.extend(
+$ = require 'jquery'
+_ = require 'underscore'
+Backbone = require 'backbone'
+BaseCollection = require './collection.base'
+
+
+class JobTicketModel extends Backbone.Model
+
+  defaults:
+    number: ''
+    client: ''
+    name: ''
+    team: ''
+    priority: ''
+
+class JobTicketCollection extends BaseCollection
+
   name: 'JobTicketCollection'
+
   model: JobTicketModel
+
   url: '/lookup_job_tickets'
+
   parse: (html) ->
     $rows = $(html).find('table tr')
+
     $rows.find('tr').first().remove()
+
     $.map $rows, (row) ->
       {
         number: $(row).find('td:eq(0) a').text()
@@ -19,10 +34,13 @@ JobTicketCollection = BaseCollection.extend(
         team: $(row).find('td:eq(3)').text()
         priority: $(row).find('td:eq(4)').text()
       }
+
   getAutoCompleteList: ->
+
     @map (job) ->
       {
         label: job.get('name')
         value: job.get('number')
       }
-)
+
+module.exports = JobTicketCollection

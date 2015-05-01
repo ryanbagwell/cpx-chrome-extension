@@ -1,13 +1,25 @@
-TaskModel = Backbone.Model.extend(defaults:
-  number: ''
-  client: ''
-  name: ''
-  team: ''
-  priority: '')
-TaskCollection = BaseCollection.extend(
+$ = require 'jquery'
+_ = require 'underscore'
+Backbone = require 'backbone'
+BaseCollection = require './collection.base'
+
+class TaskModel extends Backbone.Model
+
+  defaults:
+    number: ''
+    client: ''
+    name: ''
+    team: ''
+    priority: ''
+
+class TaskCollection extends BaseCollection
+
   name: 'TaskCollection'
+
   model: TaskModel
+
   url: '/lookup_task_table'
+
   parse: (html) ->
     $rows = $(html).find('table tr')
     $rows.find('tr').first().remove()
@@ -24,4 +36,5 @@ TaskCollection = BaseCollection.extend(
         label: job.get('name')
         value: job.get('task')
       }
-)
+
+module.exports = TaskCollection
