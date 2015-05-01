@@ -1,14 +1,22 @@
 {
   "name": "C&P Chrome Extension",
-  "version": "1.0",
+  "version": "1.2",
 	"manifest_version": 2,
-	"description": "Bugs ;)",
+  "description": "Adds autocomplete functionality to the Clients & Profits web time card",
+  "icons": {
+    "16": "images/icon.logo.16.png",
+    "48": "images/icon.logo.48.png",
+    "128": "images/icon.logo.128.png"
+  },
   "browser_action": {
-    "default_icon": "icon.logo.gif",
+    "default_icon": {
+        "19": "images/icon.logo.19.png",
+        "38": "images/icon.logo.38.png"
+    },
     "default_title": "Clients & Profits",
     "name": "Clients & Profits"
   },
-  "options_page": "settings.html",
+  "options_page": "dist/html/settings.html",
 	"permissions": [
 		"https://*/*",
 		"http://*/*",
@@ -24,7 +32,7 @@
 	      "dist/controller.js"
 	    ],
 	    "css": [
-	      "lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css"
+	      "dist/css/jquery-ui/jquery.ui.theme.css"
 	    ]
 	  }
 	]

@@ -1,0 +1,27 @@
+@import (inline) '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import (inline) '../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
+
+body {
+  padding: 0px 40px 20px 40px;
+}
+
+h1 {
+  margin-bottom: 25px;
+  display: inline-block;
+}
+
+.alert {
+  transition: all .5s ease-out;
+  margin: 20px 0 20px 20px;
+  display: inline-block;
+
+
+  &.fade-in {
+    opacity: 1;
+  }
+
+  &.fade-out {
+    opacity: 0;
+  }
+
+}
