@@ -17,7 +17,7 @@ ifCNP ->
 
     Ajax.Responders.register
 
-      onComplete: (request, XMLHttpRequest, result) =>
+      onComplete: (request, XMLHttpRequest, result)=>
 
         if request.url.match(/time_card/)
 
