@@ -38,11 +38,20 @@ class CPView extends Backbone.View
 
     @JobTaskCollection = new JobTaskCollection()
 
-    @JobTaskCollection.on 'reset', =>
-      @setJobTasks()
+    @on 'message', (data) =>
 
-    @on 'message', (e, data)=>
-      console.log data
+      @removeAutocompleteFields()
+
+      @setAutocompleteFields()
+
+
+  removeAutocompleteFields: ->
+
+    try
+      @getJobField().autocomplete 'destroy'
+      @getTaskField().autocomplete 'destroy'
+    catch
+
 
   setAutocompleteFields: ->
 

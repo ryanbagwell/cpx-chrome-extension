@@ -8,24 +8,19 @@
 # a list of job number to open when hitting the tab key
 #
 #
+if Ajax?
 
-ifCNP = require 'lib/ifCNP'
+  Ajax.Responders.register
 
-ifCNP ->
+    onComplete: (request, XMLHttpRequest, result)=>
 
-  if Ajax?
+      if request.url.match(/time_card/) or request.url.match(/home_edit_time/)
 
-    Ajax.Responders.register
+        message =
+          action: 'navigate'
+          url: request.url
 
-      onComplete: (request, XMLHttpRequest, result)=>
-
-        if request.url.match(/time_card/)
-
-          message =
-            action: 'navigate'
-            url: request.url
-
-          messageEvent = document.createEvent 'CustomEvent'
-          messageEvent.initCustomEvent 'message', true, true, message
-          bodyElem = document.getElementsByTagName('body')[0]
-          bodyElem.dispatchEvent(messageEvent)
+        messageEvent = document.createEvent 'CustomEvent'
+        messageEvent.initCustomEvent 'message', true, true, message
+        bodyElem = document.getElementsByTagName('body')[0]
+        bodyElem.dispatchEvent(messageEvent)
