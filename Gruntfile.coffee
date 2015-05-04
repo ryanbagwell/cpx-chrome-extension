@@ -122,8 +122,17 @@ module.exports = (grunt) ->
           src: 'manifest.json'
         ]
 
-
-
+    bump:
+      options:
+        files: ['package.json', 'manifest.json']
+        # commit: true
+        # commitMessage: 'Release v%VERSION%'
+        # commitFiles: ['package.json', 'manifest.json']
+        # createTag: true
+        # tagName: 'v%VERSION%'
+        # tagMessage: 'Version %VERSION%'
+        # push: true
+        # pushTo: 'master'
 
 
   # Load grunt plugins
@@ -135,6 +144,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-compress'
+  grunt.loadNpmTasks 'grunt-bump'
   # grunt.loadNpmTasks 'grunt-svgmin'
 
   # Define tasks.
