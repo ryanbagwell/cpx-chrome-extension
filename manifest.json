@@ -20,7 +20,8 @@
 	"permissions": [
 		"https://*/*",
 		"http://*/*",
-		"tabs"
+		"tabs",
+    "storage"
 	],
 	"background": {
 	  "scripts":["dist/browseraction.js"]
