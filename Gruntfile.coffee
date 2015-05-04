@@ -125,14 +125,14 @@ module.exports = (grunt) ->
     bump:
       options:
         files: ['package.json', 'manifest.json']
-        # commit: true
-        # commitMessage: 'Release v%VERSION%'
-        # commitFiles: ['package.json', 'manifest.json']
-        # createTag: true
-        # tagName: 'v%VERSION%'
-        # tagMessage: 'Version %VERSION%'
-        # push: true
-        # pushTo: 'master'
+        commit: true
+        commitMessage: 'Release v%VERSION%'
+        commitFiles: ['package.json', 'manifest.json']
+        createTag: true
+        tagName: 'v%VERSION%'
+        tagMessage: 'Version %VERSION%'
+        push: true
+        pushTo: 'master'
 
 
   # Load grunt plugins
