@@ -4,6 +4,7 @@ require 'jquery-ui'
 Backbone = require 'backbone'
 JobTicketCollection = require 'models/collection.jobticket'
 JobTaskCollection = require 'models/collection.tasks.job'
+ifCNP = require 'lib/ifCNP'
 
 
 class CPView extends Backbone.View
@@ -40,7 +41,8 @@ class CPView extends Backbone.View
     @JobTaskCollection.on 'reset', =>
       @setJobTasks()
 
-
+    @on 'message', (e, data)=>
+      console.log data
 
   setAutocompleteFields: ->
 
@@ -66,8 +68,8 @@ class CPView extends Backbone.View
 
     try
       disabled = taskField.autocomplete('option', 'disabled') is true
-    catch
-      disabled = false
+    catch e
+      disabled = true
 
     if disabled
 
@@ -75,6 +77,8 @@ class CPView extends Backbone.View
         minLength: 0
 
   setJobTicketList: (e) ->
+
+    @removeNativeHandlers()
 
     @setAutocompleteFields()
 
@@ -112,5 +116,17 @@ class CPView extends Backbone.View
     s.src = chrome.extension.getURL "dist/globalaccess.js"
     document.getElementsByTagName("head")[0].appendChild(s)
 
+  removeNativeHandlers: ->
 
-view = new CPView()
+    $jobField = @getJobField()
+
+    $jobField.removeAttr('onkeydown onchange onfocus')
+
+
+ifCNP ->
+
+  view = new CPView()
+
+  document.getElementsByTagName('body')[0].addEventListener 'message', (e) ->
+
+    view.trigger 'message', e.detail
