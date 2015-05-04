@@ -30,7 +30,6 @@ class BaseCollection extends Backbone.Collection
     models = localStorage.getItem(@name)
 
     if models
-      console.log 'using local storage'
       @add models
       @trigger 'reset'
     else
@@ -38,7 +37,6 @@ class BaseCollection extends Backbone.Collection
     return
 
   stash: ->
-    console.log 'stash'
     localStorage.setItem @name, @models
     return
 
