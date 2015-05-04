@@ -23,12 +23,12 @@ class JobTicketCollection extends BaseCollection
   url: '/lookup_job_tickets'
 
   parse: (html) ->
-    $rows = $(html).find('table tr')
 
-    $rows.find('tr').first().remove()
+    $rows = $(html).find('td.tablemid table tr')
+
+    $rows.first().remove()
 
     _.map $rows, (row) ->
-
       {
         number: $(row).find('td:eq(0) a').text()
         client: $(row).find('td:eq(1) a').text()
@@ -42,10 +42,18 @@ class JobTicketCollection extends BaseCollection
     if @length is 0
       @fetch()
 
-    @map (job) ->
-      {
-        label: "#{job.get('name')} (#{job.get('number')})"
-        value: job.get('number')
-      }
+    mapped = @map (job) ->
+
+      if job.get('number')
+
+        return {
+          label: "#{job.get('name')} (#{job.get('number')})"
+          value: job.get('number')
+        }
+
+      else
+        null
+
+    _.compact mapped
 
 module.exports = JobTicketCollection
