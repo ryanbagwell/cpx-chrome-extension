@@ -30,7 +30,7 @@ class CPView extends Backbone.View
   initialize: (@options={}) ->
     super @options
 
-    @injectContentScript()
+    #@injectContentScript()
 
     @jobTicketCollection = new JobTicketCollection()
 
