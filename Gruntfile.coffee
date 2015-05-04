@@ -32,11 +32,11 @@ module.exports = (grunt) ->
     webpack:
       options:
         cache: true
-        #devtool: 'sourcemap'
         entry:
           "browseraction":"browseraction"
           "controller":"controller"
           "settings": "settings"
+          "globalaccess": "globalaccess"
         output:
           path: "dist"
           filename: "[name].js"
@@ -53,19 +53,8 @@ module.exports = (grunt) ->
             'jquery-ui': 'jquery-ui/jquery-ui'
         module:
           loaders: [
-            # {test: /jquery\.min\.js$/, loader: 'expose?$!expose?jQuery'}
-            # # {test: /underscore\.js$/, loader: 'expose?_'}
-            # # {test: /backbone\.js$/, loader: 'expose?Backbone'}
             {test: /\.coffee$/, loaders: ['coffee-loader']}
-            {test: /\.cjsx$/, loaders: ['coffee', 'cjsx']}
-            {test: /\.jsx$/, loaders: ['jsx']}
-            {test: /\.json$/, loaders: ['json-loader']}
           ]
-        # plugins: [
-        #   new webpack.optimize.CommonsChunkPlugin "common", "common.js"
-        #   new webpack.optimize.CommonsChunkPlugin "admin", "admin.js"
-        #   new webpack.ContextReplacementPlugin(/moment[\\\/]lang$/, /^\.\/(en-us)$/)
-        # ]
         stats:
           colors: true
           modules: true
@@ -86,11 +75,9 @@ module.exports = (grunt) ->
       files:
         expand: true
         flatten: false
-        cwd: './.static_built/layout/js/'
-        dest: './.static_built/layout/js/'
-        src: [
-          '**/*.js'
-        ]
+        cwd: 'dist/'
+        dest: 'dist/'
+        src: '**/*.js'
 
     copy:
       all:
@@ -119,14 +106,10 @@ module.exports = (grunt) ->
     cssmin:
       minify:
         expand: true
-        cwd: './.static_built/layout/'
+        cwd: 'dist/css'
         src: ['**/*.css'],
-        dest: './.static_built/layout/'
+        dest: 'dist/css'
         ext: '.css'
-        options:
-          keepSpecialComments: 0
-          banner: '/* <%= projectName %> created by HZDG */'
-
 
 
   # Load grunt plugins

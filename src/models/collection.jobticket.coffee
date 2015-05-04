@@ -13,6 +13,7 @@ class JobTicketModel extends Backbone.Model
     team: ''
     priority: ''
 
+
 class JobTicketCollection extends BaseCollection
 
   name: 'JobTicketCollection'
@@ -26,7 +27,8 @@ class JobTicketCollection extends BaseCollection
 
     $rows.find('tr').first().remove()
 
-    $.map $rows, (row) ->
+    _.map $rows, (row) ->
+
       {
         number: $(row).find('td:eq(0) a').text()
         client: $(row).find('td:eq(1) a').text()
@@ -37,9 +39,12 @@ class JobTicketCollection extends BaseCollection
 
   getAutoCompleteList: ->
 
+    if @length is 0
+      @fetch()
+
     @map (job) ->
       {
-        label: job.get('name')
+        label: "#{job.get('name')} (#{job.get('number')})"
         value: job.get('number')
       }
 

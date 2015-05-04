@@ -13,28 +13,22 @@ class BaseCollection extends Backbone.Collection
 
     @on 'reset', @stash
 
-    @query()
+  fetch: (opts) ->
 
-  sync: (method, model, options) ->
-    `var options`
-    options = $.extend({
+    defaults =
       dataType: 'html'
-      parse: @parse
-    }, options)
-    console.log options
-    Backbone.sync.call this, method, model, options
+
+    opts = _.extend {}, defaults, opts
+
+    super(opts)
 
   getAutoCompleteList: ->
     null
 
-  query: ->
-    console.log 'query'
-    @fetch()
-    return
-
   populate: (options) ->
-    console.log 'populate'
+
     models = localStorage.getItem(@name)
+
     if models
       console.log 'using local storage'
       @add models
@@ -42,6 +36,7 @@ class BaseCollection extends Backbone.Collection
     else
       @query options
     return
+
   stash: ->
     console.log 'stash'
     localStorage.setItem @name, @models

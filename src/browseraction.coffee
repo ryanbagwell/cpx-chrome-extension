@@ -1,3 +1,6 @@
+_ = require 'underscore'
+_.string = require 'underscore.string'
+
 addScripts = (tabId) ->
   chrome.tabs.executeScript tabId, file: 'lib/jquery/jquery.min.js'
   chrome.tabs.executeScript tabId, file: 'lib/jquery-ui/ui/jquery-ui.js'

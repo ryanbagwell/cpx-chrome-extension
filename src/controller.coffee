@@ -10,6 +10,7 @@ class CPView extends Backbone.View
 
   events:
     'focus #COST_JOB_NUM': 'setJobTicketList'
+    'focus #COST_TASK': 'setJobTasks'
 
   el: $('#main')
 
@@ -21,29 +22,95 @@ class CPView extends Backbone.View
 
   taskList: null
 
-  initialize: ->
-    console.log 'init'
-    super
-    @jobTicketCollection = new JobTicketCollection
-    return
+  jobField: $('#COST_JOB_NUM')
+
+  taskField: $('#COST_TASK')
+
+  initialize: (@options={}) ->
+    super @options
+
+    @injectContentScript()
+
+    @jobTicketCollection = new JobTicketCollection()
+
+    @jobTicketCollection.fetch()
+
+    @JobTaskCollection = new JobTaskCollection()
+
+    @JobTaskCollection.on 'reset', =>
+      @setJobTasks()
+
+
+
+  setAutocompleteFields: ->
+
+    jobField = @getJobField()
+
+    taskField = @getTaskField()
+
+    try
+      disabled = jobField.autocomplete('option', 'disabled') is true
+    catch
+      disabled = true
+
+    if disabled
+
+      jobField.autocomplete
+      	minLength: 0,
+        select: (e, ui) =>
+
+          data =
+            J_NUM: ui.item.value
+
+          @JobTaskCollection.fetch({reset: true}, data)
+
+    try
+      disabled = taskField.autocomplete('option', 'disabled') is true
+    catch
+      disabled = false
+
+    if disabled
+
+      taskField.autocomplete
+        minLength: 0
 
   setJobTicketList: (e) ->
-    @_setAutoComplete e.currentTarget, @jobTicketCollection, @setTaskList
-    return
 
-  setTaskList: (e, ui) ->
-    tasks = new JobTaskCollection(null, jobNumber: ui.item.value)
-    tasks.on 'reset', (->
-      console.log tasks
-      @_setAutoComplete '#COST_TASK', tasks
-      return
-    ), this
-    return
+    @setAutocompleteFields()
 
-  _setAutoComplete: (el, collection, onSelectCallback) ->
-    $(el).autocomplete
-      source: collection.getAutoCompleteList()
-      select: onSelectCallback or null
-    return
+    @getJobField().autocomplete 'option',
+                                'source',
+                                @jobTicketCollection.getAutoCompleteList()
+
+    @getJobField().autocomplete 'search', ''
+
+  setJobTasks: () ->
+
+    @getTaskField().autocomplete 'option',
+                                 'source',
+                                 @JobTaskCollection.getAutoCompleteList()
+
+    @getTaskField().autocomplete 'search', ''
+
+  getJobField: () ->
+
+    if @jobField.length is 0
+      @jobField = $('#COST_JOB_NUM')
+
+    return @jobField
+
+  getTaskField: () ->
+
+    if @taskField.length is 0
+      @taskField = $('#COST_TASK')
+
+    return @taskField
+
+  injectContentScript: ->
+
+    s = document.createElement "script"
+    s.src = chrome.extension.getURL "dist/globalaccess.js"
+    document.getElementsByTagName("head")[0].appendChild(s)
+
 
 view = new CPView()
