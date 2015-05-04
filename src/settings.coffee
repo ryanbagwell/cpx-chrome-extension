@@ -12,16 +12,14 @@ class Settings extends Backbone.View
 
     @on 'saved', => @alertSuccess()
 
-    if localStorage.getItem('cnpURL')
-      @$el.find('#cnp-url').val localStorage.getItem('cnpURL')
+    chrome.storage.local.get 'cnpURL', (result) =>
+      @$el.find('#cnp-url').val result.cnpURL
 
   save: (e) ->
     e.preventDefault()
 
-    localStorage.setItem 'cnpURL', @$el.find('#cnp-url').val()
-
-    @trigger('saved')
-
+    chrome.storage.local.set {'cnpURL': @$el.find('#cnp-url').val()}, =>
+      @trigger('saved')
 
   alertSuccess: ->
 
