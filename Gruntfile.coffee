@@ -117,7 +117,7 @@ module.exports = (grunt) ->
           archive: 'package.zip'
         files: [
           src: 'dist/**/*'
-          dest: 'dist'
+          dest: '.'
         ,
           src: 'manifest.json'
         ]
