@@ -111,6 +111,20 @@ module.exports = (grunt) ->
         dest: 'dist/css'
         ext: '.css'
 
+    compress:
+      main:
+        options:
+          archive: 'package.zip'
+        files: [
+          src: 'dist/**/*'
+          dest: 'dist'
+        ,
+          src: 'manifest.json'
+        ]
+
+
+
+
 
   # Load grunt plugins
   grunt.loadNpmTasks 'grunt-contrib-less'
@@ -120,9 +134,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-copy'
+  grunt.loadNpmTasks 'grunt-contrib-compress'
   # grunt.loadNpmTasks 'grunt-svgmin'
 
   # Define tasks.
   grunt.registerTask 'build', ['less', 'webpack:production']
   grunt.registerTask 'optimize', ['uglify', 'cssmin',]
+  grunt.registerTask 'package', ['build', 'optimize', 'compress']
   grunt.registerTask 'default', ['build']
