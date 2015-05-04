@@ -1,12 +1,12 @@
 #
 # Execute the provided callback if the
-# current url matches the host
+# cnp url has been set
 #
 module.exports = (trueCallback=null, falseCallback=null) ->
 
   chrome.storage.local.get 'cnpURL', (result) ->
 
-    if result.cnpURL.match(new RegExp(window.location.host))
+    if result.cnpURL
 
         trueCallback(result.cnpURL) if trueCallback
 
