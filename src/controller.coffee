@@ -59,31 +59,19 @@ class CPView extends Backbone.View
 
     taskField = @getTaskField()
 
-    try
-      disabled = jobField.autocomplete('option', 'disabled') is true
-    catch
-      disabled = true
+    jobField.autocomplete
+    	minLength: 0,
+      appendTo: jobField.parent()
+      select: (e, ui) =>
 
-    if disabled
+        data =
+          J_NUM: ui.item.value
 
-      jobField.autocomplete
-      	minLength: 0,
-        select: (e, ui) =>
+        @JobTaskCollection.fetch({reset: true}, data)
 
-          data =
-            J_NUM: ui.item.value
-
-          @JobTaskCollection.fetch({reset: true}, data)
-
-    try
-      disabled = taskField.autocomplete('option', 'disabled') is true
-    catch e
-      disabled = true
-
-    if disabled
-
-      taskField.autocomplete
-        minLength: 0
+    taskField.autocomplete
+      minLength: 0
+      appendTo: taskField.parent()
 
   setJobTicketList: (e) ->
 
@@ -95,7 +83,7 @@ class CPView extends Backbone.View
                                 'source',
                                 @jobTicketCollection.getAutoCompleteList()
 
-    @getJobField().autocomplete 'search', ''
+    @getJobField().autocomplete 'search', @getJobField().val()
 
   setJobTasks: () ->
 
@@ -103,21 +91,16 @@ class CPView extends Backbone.View
                                  'source',
                                  @JobTaskCollection.getAutoCompleteList()
 
-    @getTaskField().autocomplete 'search', ''
+    @getTaskField().autocomplete 'search', @getTaskField().val()
 
   getJobField: () ->
 
-    if @jobField.length is 0
-      @jobField = $('#COST_JOB_NUM')
-
-    return @jobField
+    $('#COST_JOB_NUM')
 
   getTaskField: () ->
 
-    if @taskField.length is 0
-      @taskField = $('#COST_TASK')
+    $('#COST_TASK')
 
-    return @taskField
 
   injectContentScript: ->
 
@@ -129,7 +112,7 @@ class CPView extends Backbone.View
 
     $jobField = @getJobField()
 
-    $jobField.removeAttr('onkeydown onchange onfocus')
+    $jobField.removeAttr('onkeydown onchange onfocus title')
 
 
 ifCNP ->

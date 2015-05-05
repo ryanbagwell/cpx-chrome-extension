@@ -1,5 +1,6 @@
 webpack = require 'webpack'
 ExtractTextPlugin = require "extract-text-webpack-plugin"
+#process = require 'process'
 
 
 module.exports = (grunt) ->
@@ -28,6 +29,7 @@ module.exports = (grunt) ->
       all:
         files:
           "dist/css/settings.css": "src/less/settings.less"
+          "dist/css/ui.css": "src/less/ui.less"
 
     webpack:
       options:
@@ -132,7 +134,20 @@ module.exports = (grunt) ->
         tagName: 'v%VERSION%'
         tagMessage: 'Version %VERSION%'
         push: true
-        pushTo: 'master'
+        pushTo: 'origin'
+
+    webstore_upload:
+      accounts:
+        default:
+          publish: true
+          client_id: process.env.CHROME_WEBSTORE_PUBLISH_ID
+          client_secret: process.env.CHROME_WEBSTORE_PUBLISH_SECRET
+
+      extensions:
+        cnpx:
+          appID: 'jebjdphnbeoigigjbemknhklddadlpna'
+          zip: 'package.zip'
+          publish: true
 
 
   # Load grunt plugins
@@ -145,6 +160,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-compress'
   grunt.loadNpmTasks 'grunt-bump'
+  grunt.loadNpmTasks 'grunt-webstore-upload'
   # grunt.loadNpmTasks 'grunt-svgmin'
 
   # Define tasks.
@@ -152,3 +168,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'optimize', ['uglify', 'cssmin',]
   grunt.registerTask 'package', ['build', 'optimize', 'compress']
   grunt.registerTask 'default', ['build']
+  grunt.registerTask 'publish', ['package', 'webstore_upload']
