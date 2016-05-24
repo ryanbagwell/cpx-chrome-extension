@@ -4,6 +4,12 @@ Backbone = require 'backbone'
 
 class Settings extends Backbone.View
 
+  settingsInputs: {
+    'cnp-url': ''
+    'native-ui-disabled': true
+    'background-updates-enabled': true
+  }
+
   events:
     'submit': 'save'
 
@@ -12,14 +18,32 @@ class Settings extends Backbone.View
 
     @on 'saved', => @alertSuccess()
 
-    chrome.storage.local.get 'cnpURL', (result) =>
-      @$el.find('#cnp-url').val result.cnpURL
+    chrome.storage.local.get @settingsInputs, (settings) =>
+
+      for key, val of settings
+
+        $el = @$el.find("[name='#{key}']").first()
+
+        if $el.attr('type') == 'checkbox'
+          $el.get(0).checked = val
+        else
+          $el.val val
 
   save: (e) ->
     e.preventDefault()
 
-    chrome.storage.local.set {'cnpURL': @$el.find('#cnp-url').val()}, =>
-      @trigger('saved')
+    for setting, defaultValue of @settingsInputs
+
+      $el = @$el.find("[name='#{setting}']").first()
+
+      if $el.attr('type') == 'checkbox'
+        val = $el.get(0).checked
+      else
+        val = $el.val()
+
+      chrome.storage.local.set {"#{setting}": val}
+
+    @trigger('saved')
 
   alertSuccess: ->
 

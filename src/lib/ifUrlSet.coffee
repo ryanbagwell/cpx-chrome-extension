@@ -4,12 +4,12 @@
 #
 module.exports = (trueCallback=null, falseCallback=null) ->
 
-  chrome.storage.local.get 'cnpURL', (result) ->
+  chrome.storage.local.get 'cnp-url', (result) ->
 
-    if result.cnpURL
+    if result['cnp-url']
 
-        trueCallback(result.cnpURL) if trueCallback
+        trueCallback(result['cnp-url']) if trueCallback
 
     else
 
-        falseCallback(result.cnpURL) if falseCallback
+        falseCallback(result['cnp-url']) if falseCallback
