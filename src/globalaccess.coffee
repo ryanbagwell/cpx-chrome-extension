@@ -8,6 +8,7 @@
 # a list of job number to open when hitting the tab key
 #
 #
+
 if Ajax?
 
   Ajax.Responders.register
@@ -24,3 +25,11 @@ if Ajax?
         messageEvent.initCustomEvent 'message', true, true, message
         bodyElem = document.getElementsByTagName('body')[0]
         bodyElem.dispatchEvent(messageEvent)
+
+document.getElementsByTagName('body')[0].addEventListener 'disableNativeHandlers', (e) ->
+
+  window.popup_jobs = ->
+    console.log('jobs popup disabled')
+
+  window.popup_tasks = ->
+    console.log('tasks popup disabled')

@@ -23,9 +23,9 @@ class CPView extends Backbone.View
 
   taskList: null
 
-  jobField: $('#COST_JOB_NUM')
+  jobField: null
 
-  taskField: $('#COST_TASK')
+  taskField: null
 
   initialize: (@options={}) ->
     super @options
@@ -37,6 +37,10 @@ class CPView extends Backbone.View
     @jobTicketCollection.fetch()
 
     @JobTaskCollection = new JobTaskCollection()
+
+    setTimeout(=>
+      @removeNativeHandlers()
+    , 2000)
 
     @on 'message', (data) =>
 
@@ -110,10 +114,15 @@ class CPView extends Backbone.View
 
   removeNativeHandlers: ->
 
-    $jobField = @getJobField()
+    chrome.storage.local.get 'native-ui-disabled', (result) ->
 
-    $jobField.removeAttr('onkeydown onchange onfocus title')
+      if result['native-ui-disabled'] is false
+        return
 
+      messageEvent = document.createEvent 'CustomEvent'
+      messageEvent.initCustomEvent 'disableNativeHandlers', true, true, true
+      bodyElem = document.getElementsByTagName('body')[0]
+      bodyElem.dispatchEvent(messageEvent)
 
 ifCNP ->
 
