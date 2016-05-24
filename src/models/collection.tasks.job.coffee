@@ -1,6 +1,7 @@
 $ = require 'jquery'
 _ = require 'underscore'
 TaskCollection = require './collection.tasks'
+require 'backbone-fetch-cache'
 
 
 class JobTaskCollection extends TaskCollection

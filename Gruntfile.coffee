@@ -53,6 +53,7 @@ module.exports = (grunt) ->
             underscore: 'underscore/underscore'
             jquery: 'jquery/dist/jquery'
             'jquery-ui': 'jquery-ui/jquery-ui'
+            'backbone-fetch-cache': 'backbone-fetch-cache/backbone.fetch-cache'
         module:
           loaders: [
             {test: /\.coffee$/, loaders: ['coffee-loader']}

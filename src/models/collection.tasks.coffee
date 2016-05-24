@@ -2,6 +2,7 @@ $ = require 'jquery'
 _ = require 'underscore'
 Backbone = require 'backbone'
 BaseCollection = require './collection.base'
+require 'backbone-fetch-cache'
 
 class TaskModel extends Backbone.Model
 

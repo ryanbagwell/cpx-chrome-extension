@@ -1,6 +1,7 @@
 $ = require 'jquery'
 _ = require 'underscore'
 Backbone = require 'backbone'
+require 'backbone-fetch-cache'
 
 class BaseCollection extends Backbone.Collection
 
@@ -17,6 +18,8 @@ class BaseCollection extends Backbone.Collection
 
     defaults =
       dataType: 'html'
+      cache: true
+      expires: 3600
 
     opts = _.extend {}, defaults, opts
 
@@ -24,20 +27,5 @@ class BaseCollection extends Backbone.Collection
 
   getAutoCompleteList: ->
     null
-
-  populate: (options) ->
-
-    models = localStorage.getItem(@name)
-
-    if models
-      @add models
-      @trigger 'reset'
-    else
-      @query options
-    return
-
-  stash: ->
-    localStorage.setItem @name, @models
-    return
 
 module.exports = BaseCollection
