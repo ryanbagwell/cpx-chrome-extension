@@ -36,7 +36,11 @@ class CPView extends Backbone.View
 
     @jobTicketCollection.fetch()
 
-    @JobTaskCollection = new JobTaskCollection()
+    @jobTaskCollection = new JobTaskCollection()
+
+    @jobTaskCollection.on 'reset', =>
+      @setJobTasks()
+      @getLoadingIcon().hide()
 
     setTimeout(=>
       @removeNativeHandlers()
@@ -63,15 +67,17 @@ class CPView extends Backbone.View
 
     taskField = @getTaskField()
 
+    @getLoadingIcon()
+
     jobField.autocomplete
     	minLength: 0,
       appendTo: jobField.parent()
       select: (e, ui) =>
-
         data =
           J_NUM: ui.item.value
-
-        @JobTaskCollection.fetch({reset: true}, data)
+        @getLoadingIcon().show()
+        @jobTaskCollection.fetch({reset: true}, data)
+        @getTaskField().trigger 'focus'
 
     taskField.autocomplete
       minLength: 0
@@ -93,9 +99,35 @@ class CPView extends Backbone.View
 
     @getTaskField().autocomplete 'option',
                                  'source',
-                                 @JobTaskCollection.getAutoCompleteList()
+                                 @jobTaskCollection.getAutoCompleteList()
 
     @getTaskField().autocomplete 'search', @getTaskField().val()
+
+  getLoadingIcon: ->
+
+    if @loadingIcon?
+      return @loadingIcon
+
+    src = chrome.extension.getURL("dist/img/loading.svg");
+
+    @getTaskField().parent().css({
+      position: 'relative'
+    });
+
+    $el = $("<img src='#{src}' />").css({
+      width: '23px'
+      height: '23px'
+      position: 'absolute'
+      top: '3px'
+      right: '-20px'
+    }).hide()
+
+    @getTaskField().parent().append($el)
+
+    @loadingIcon = $el
+
+    return @loadingIcon
+
 
   getJobField: () ->
 
@@ -104,7 +136,6 @@ class CPView extends Backbone.View
   getTaskField: () ->
 
     $('#COST_TASK')
-
 
   injectContentScript: ->
 

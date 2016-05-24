@@ -40,7 +40,8 @@
 	  }
 	],
   "web_accessible_resources": [
-    "dist/globalaccess.js"
+    "dist/globalaccess.js",
+    "dist/img/loading.svg"
   ]
 
 }
