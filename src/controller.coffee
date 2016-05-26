@@ -145,7 +145,7 @@ class CPView extends Backbone.View
 
   removeNativeHandlers: ->
 
-    chrome.storage.local.get 'native-ui-disabled', (result) ->
+    chrome.storage.local.get {'native-ui-disabled': true}, (result) ->
 
       if result['native-ui-disabled'] is false
         return

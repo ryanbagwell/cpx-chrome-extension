@@ -4,7 +4,7 @@
 #
 module.exports = (trueCallback=null, falseCallback=null) ->
 
-  chrome.storage.local.get 'cnp-url', (result) ->
+  chrome.storage.local.get {'cnp-url': ''}, (result) ->
 
     if result['cnp-url'].match(new RegExp(window.location.host))
 
