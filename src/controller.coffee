@@ -77,7 +77,6 @@ class CPView extends Backbone.View
           J_NUM: ui.item.value
         @getLoadingIcon().show()
         @jobTaskCollection.fetch({reset: true}, data)
-        @getTaskField().trigger 'focus'
 
     taskField.autocomplete
       minLength: 0
