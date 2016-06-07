@@ -12,14 +12,14 @@ class BaseCollection extends Backbone.Collection
   initialize: (models, @options={}) ->
     super @options
 
-    @on 'reset', @stash
-
   fetch: (opts) ->
 
     defaults =
       dataType: 'html'
       cache: true
       expires: 3600
+      prefill: true
+      prefillExpires: 3600
 
     opts = _.extend {}, defaults, opts
 
