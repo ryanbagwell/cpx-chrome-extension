@@ -1,6 +1,6 @@
 {
   "name": "cpx-chrome-extension",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Adds autocomplete functionality to the Clients & Profits web time card.",
   "main": "index.js",
   "scripts": {
