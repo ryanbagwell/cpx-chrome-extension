@@ -39,7 +39,7 @@ class CPView extends Backbone.View
     @jobTaskCollection = new JobTaskCollection()
 
     @jobTaskCollection.on 'reset', =>
-      @setJobTasks()
+      @getTaskField().attr('disabled', false).fadeTo 200, 1
       @getLoadingIcon().hide()
 
     setTimeout(=>
@@ -76,7 +76,9 @@ class CPView extends Backbone.View
         data =
           J_NUM: ui.item.value
         @getLoadingIcon().show()
+        @getTaskField().attr('disabled', true).fadeTo 200, 0.1
         @jobTaskCollection.fetch({reset: true}, data)
+        @getTaskField().val('')
 
     taskField.autocomplete
       minLength: 0
