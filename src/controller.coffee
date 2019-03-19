@@ -1,6 +1,6 @@
 $ = require 'jquery'
 _ = require 'underscore'
-require 'jquery-ui'
+require 'jquery-ui/ui/widgets/autocomplete'
 Backbone = require 'backbone'
 JobTicketCollection = require 'models/collection.jobticket'
 JobTaskCollection = require 'models/collection.tasks.job'

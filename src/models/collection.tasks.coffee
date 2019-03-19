@@ -31,8 +31,11 @@ class TaskCollection extends BaseCollection
         group: $(row).find('td:eq(2)').text()
         kind: $(row).find('td:eq(3)').text()
       }
+
   getAutoCompleteList: ->
-    @map (job) ->
+
+    @filter((job) -> job.get('task') != 'NONE')
+    .map (job) ->
       {
         label: job.get('name')
         value: job.get('task')

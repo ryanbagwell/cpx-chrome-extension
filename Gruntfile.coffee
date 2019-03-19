@@ -52,8 +52,6 @@ module.exports = (grunt) ->
           alias:
             underscore: 'underscore/underscore'
             jquery: 'jquery/dist/jquery'
-            'jquery-ui': 'jquery-ui/ui/widget'
-            'jquery-ui/jquery-ui': 'jquery-ui/ui/widget'
             'backbone-fetch-cache': 'backbone-fetch-cache/backbone.fetch-cache'
         module:
           loaders: [
