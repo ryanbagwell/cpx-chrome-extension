@@ -87,7 +87,7 @@ module.exports = (grunt) ->
       all:
         files: [
           expand: true
-          cwd: 'node_modules/jquery-ui/themes/smoothness/'
+          cwd: 'node_modules/jquery-ui-themes/themes/smoothness/'
           src: '**/*'
           dest: 'dist/css/jquery-ui'
         ,
