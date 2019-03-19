@@ -34,7 +34,7 @@
 	    ],
 	    "css": [
 	      "dist/css/jquery-ui/jquery-ui.min.css",
-	      "dist/css/jquery-ui/jquery.ui.theme.css",
+	      "dist/css/jquery-ui/theme.css",
         "dist/css/ui.css"
 	    ]
 	  }
