@@ -1,6 +1,6 @@
 {
   "name": "cpx-chrome-extension",
-  "version": "1.4.6",
+  "version": "1.4.8",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -2761,6 +2761,11 @@
       "version": "1.12.1",
       "resolved": "http://npmregistry.hzdg.com/jquery-ui/-/jquery-ui-1.12.1.tgz",
       "integrity": "sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE="
+    },
+    "jquery-ui-themes": {
+      "version": "1.12.0",
+      "resolved": "http://npmregistry.hzdg.com/jquery-ui-themes/-/jquery-ui-themes-1.12.0.tgz",
+      "integrity": "sha1-pXugrZaADYRSL+dok//L3mcIHVE="
     },
     "js-yaml": {
       "version": "2.0.5",

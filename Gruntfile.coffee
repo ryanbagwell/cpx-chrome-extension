@@ -168,6 +168,6 @@ module.exports = (grunt) ->
   # Define tasks.
   grunt.registerTask 'build', ['less', 'webpack:production']
   grunt.registerTask 'optimize', ['uglify', 'cssmin',]
-  grunt.registerTask 'package', ['build', 'optimize', 'compress']
+  grunt.registerTask 'package', ['build', 'optimize', 'compress', 'copy']
   grunt.registerTask 'default', ['build']
   grunt.registerTask 'publish', ['package', 'webstore_upload']
