@@ -37,7 +37,7 @@ class TaskCollection extends BaseCollection
     @filter((job) -> job.get('task') != 'NONE')
     .map (job) ->
       {
-        label: job.get('name')
+        label: "#{job.get('name')} (#{job.get('task')})"
         value: job.get('task')
       }
 
